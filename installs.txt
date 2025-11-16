@@ -1,0 +1,5 @@
+npm install express
+npm install mssql
+npm install cors
+npm install -g nodemon
+npm install dotenv
