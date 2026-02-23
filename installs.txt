@@ -3,3 +3,14 @@ npm install mssql
 npm install cors
 npm install -g nodemon
 npm install dotenv
+
+{
+  "NumOfTickets": 5,
+  "Name": "New cust",
+  "Email": "andrew@example.com",
+  "NameOnCard": "Andrew",
+  "CardNumber": "1234566543216789",
+  "ExpirationDate": "0126",
+  "CVV": "wer",
+  "ConcertId": 20
+}

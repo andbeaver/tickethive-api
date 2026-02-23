@@ -10,7 +10,7 @@ const db_connection_string = process.env.DB_CONNECTION_STRING;
 
 //GETs:
 
-// Get all concerts
+// Get all concerts ------------------------
 router.get('/', async (req, res) => {
 
     await sql.connect(db_connection_string);
@@ -27,7 +27,7 @@ ORDER BY a.[ConcertTime] ASC`;
 });
 
 
-//Return concert IDs
+//Return concert IDs ------------------------------
 
 router.get('/:id', async (req, res) =>{
     const id = (req.params.id);
@@ -52,7 +52,7 @@ WHERE a.[ConcertId] = ${id};`;
     res.json(result.recordset[0]);
 });
 
-// Purchases
+// Purchases ----------------------------
 
 router.post('/purchase', async (req, res) =>{
 if (!req.body || Object.keys(req.body).length === 0) {
@@ -84,7 +84,7 @@ if (!req.body || Object.keys(req.body).length === 0) {
   if (!/^\d{16}$/.test(cardDigits)) errors.push('CardNumber must be exactly 16 digits.');
   //Ensure cvv is 3 digits
   if (!/^\d{3}$/.test(cvv)) errors.push('CVV must be exactly 3 digits.');
-  // Esnure concert is a positive int
+  // Ensure concert is a positive int
   if (!Number.isInteger(concertId) || concertId <= 0) errors.push('ConcertId must be a positive integer.');
   // Esnure num of tickets is positive
   if (!Number.isInteger(numTickets) || numTickets <= 0) errors.push('NumOfTickets must be a positive integer.');
@@ -123,36 +123,25 @@ if (!req.body || Object.keys(req.body).length === 0) {
   }
 });
 
-// {
-//   "NumOfTickets": 5,
-//   "Name": "New cust",
-//   "Email": "andrew@example.com",
-//   "NameOnCard": "Andrew",
-//   "CardNumber": "1234566543216789",
-//   "ExpirationDate": "0126",
-//   "CVV": "wer",
-//   "ConcertId": 20
-// }
-
 //GET to show purchases
 
-// router.get('/:id/purchases', async (req, res) => {
-//   const id = req.params.id;
-//   if (isNaN(id)) return res.status(400).json({ error: 'Invalid Concert ID' });
+router.get('/:id/purchases', async (req, res) => {
+  const id = req.params.id;
+  if (isNaN(id)) return res.status(400).json({ error: 'Invalid Concert ID' });
 
-//   try {
-//     await sql.connect(db_connection_string);
+  try {
+    await sql.connect(db_connection_string);
 
-//     const result = await sql.query`
-//       SELECT PurchaseId, NumOfTickets, Name, Email, NameOnCard, CardNumber, ExpirationDate, CVV, ConcertId
-//       FROM dbo.Purchase WHERE ConcertId = ${id}`;
+    const result = await sql.query`
+      SELECT PurchaseId, NumOfTickets, Name, Email, NameOnCard, CardNumber, ExpirationDate, CVV, ConcertId
+      FROM dbo.Purchase WHERE ConcertId = ${id}`;
 
-//     res.json(result.recordset);
-//   } catch (err) {
-//     console.error(`GET /${id}/purchases error:`, err);
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// });
+    res.json(result.recordset);
+  } catch (err) {
+    console.error(`GET /${id}/purchases error:`, err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 
 
 
