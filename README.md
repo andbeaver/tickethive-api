@@ -46,11 +46,3 @@ See `routes.js` for available endpoints and expected request/response shapes.
 ## Contributing
 - Open issues or pull requests with bug fixes or small improvements.
 - Keep changes focused and include tests where applicable.
-
-## License
-This repository does not include a specific license. Add a `LICENSE` file if you want to permit reuse.
-
----
-If you'd like, I can also:
-- Add more detailed API docs (list endpoints and examples from `routes.js`)
-- Add a `.env.example` and `npm start` script to `package.json`
